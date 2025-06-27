@@ -1,0 +1,382 @@
+<app-dash-header></app-dash-header>
+
+<nav class="breadcrumb-wrapper" id="breadcrumbWrapper" aria-label="breadcrumb">
+  <ol class="breadcrumb m-0 animate__animated animate__slideInDown">
+    <li class="breadcrumb-item">Account</li>
+    <!-- <li class="breadcrumb-item active" aria-current="page">dfsdf</li> -->
+  </ol>
+</nav>
+<section class="section">
+  <div class="wrap-tabs border-bottom pb-2">
+    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="pill" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true"><i class="fas fa-user"></i>&nbsp;Profile</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="nav-password-tab" data-bs-toggle="pill" data-bs-target="#nav-password" type="button" role="tab" aria-controls="nav-password" aria-selected="false"><i class="fas fa-key"></i>&nbsp;Password</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="nav-pay-history-tab" data-bs-toggle="pill" data-bs-target="#nav-pay-history" type="button" role="tab" aria-controls="nav-pay-history" aria-selected="false"><i class="fas fa-credit-card"></i>&nbsp;Payment&nbsp;History</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-privacy-tab" data-bs-toggle="pill" data-bs-target="#pills-privacy" type="button" role="tab" aria-controls="pills-privacy" aria-selected="false"><i class="fas fa-user-shield"></i>&nbsp;Privacy</button>
+      </li>
+      <!-- <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</button>
+      </li> -->
+    </ul>
+  </div>
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <div class="nav-progress">
+        <ul class="nav" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-profile-one-tab" data-bs-toggle="pill" data-bs-target="#pills-profile-one" type="button" role="tab" aria-controls="pills-profile-one" aria-selected="true">1</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-two-tab" data-bs-toggle="pill" data-bs-target="#pills-profile-two" type="button" role="tab" aria-controls="pills-profile-two" aria-selected="false">2</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-three-tab" data-bs-toggle="pill" data-bs-target="#pills-profile-three" type="button" role="tab" aria-controls="pills-profile-three" aria-selected="false">3</button>
+          </li>
+        </ul>
+        <div class="progress">
+          <div class="progress-bar bg-warning" role="progressbar" [style]="'width:'+totalPercentage+'%'" [attr.aria-valuenow]="totalPercentage" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+      <div class="bg-white p-2 rounded shadow">
+        <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-profile-one" role="tabpanel" aria-labelledby="pills-profile-one-tab">
+              <div class="row align-items-center">
+                <div class="col-6"><h4 class="fw-bold">1. Personal Details</h4></div>
+                <div class="col-6 text-end">
+                  <button type="button" class="btn btn-warning btn-sm" (click)="changeTab('pills-profile-two-tab')">Next</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="d-flex align-items-center flex-column">
+                    <img src="{{imageSrc}}" width="80px" height="80px" class="rounded-circle border border-secondary">
+                    <label for="profile" class="bg-secondary-auto text-white mt-2 py-1 px-2 rounded cursor-pointer">Upload Image</label>
+                    <input type="file" class="d-none" id="profile" accept=".png,.jpg,.jpeg" (change)="preview($event); onFileSelect($event);" >
+                    <input type="hidden" formControlName="profile_photo" value="" />
+                  </div>
+                </div>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-6 mb-2">
+                      <label>Name</label>
+                      <input type="text" formControlName="full_name" class="form-control" placeholder="Name" [ngClass]="{'is-invalid': (isProfileSubmitted || prf.full_name.touched) && prf.full_name.invalid}"/>
+                      <span class="invalid-feedback" *ngIf="prf.full_name.hasError('required')">Please enter full name</span>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                      <label>Gender</label>
+                      <select formControlName="gender" class="form-select">
+                        <option value="">Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-2">
+                      <label>Date of Birth</label>
+                      <input type="date" formControlName="dob" class="form-control" [ngClass]="{'is-invalid': ((isProfileSubmitted || prf.dob.touched) && prf.dob.invalid) || doborpassingyear}" (change)="checkDoborPassingYear();"/>
+                      <span class="invalid-feedback" *ngIf="prf.dob.hasError('required')">Please enter date of birth</span>
+                      <span class="invalid-feedback" *ngIf="doborpassingyear">Please check year of leaving or Date of Birth</span>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                      <label>Email</label>
+                      <input type="email" class="form-control" placeholder="Email" value="{{email}}" readonly/>
+                    </div>
+                  </div>
+                  <div class="row">
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>Phone Code</label>
+                  <select formControlName="phone_code" class="form-select" [ngClass]="{'is-invalid': (isProfileSubmitted || prf.phone_code.touched) && prf.phone_code.invalid}">
+                    <option [value]="phoneCode.dial_code" *ngFor="let phoneCode of phoneCodes">{{phoneCode.name}}</option>
+                  </select>
+                  <span class="invalid-feedback" *ngIf="prf.phone_code.hasError('required')">Please enter phone code</span>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>Mobile</label>
+                  <input type="text" class="form-control" placeholder="Mobile" value="{{mobile}}" readonly/>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>Whatsapp No. (if any)</label>
+                  <input type="text" formControlName="whatsapp" class="form-control" placeholder="Whatsapp No."/>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>Last Attended Class</label>
+                  <!-- <input type="text" formControlName="passing_class" class="form-control" placeholder="Last Attended Class"/> -->
+                  <select class="form-select" formControlName="passing_class" [ngClass]="{'is-invalid': (isProfileSubmitted || prf.passing_class.touched) && prf.passing_class.invalid}">
+                    <option value="">-- Select Class --</option>
+                    <option *ngFor="let class of classes" [value]="class.id">{{class.class_name}}</option>
+                  </select>
+                  <span class="invalid-feedback" *ngIf="prf.passing_class.hasError('required')">Please enter last attended class</span>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>Year of Leaving</label>
+                  <!-- <input type="text" formControlName="passing_year" class="form-control" placeholder="Year of Leaving"/> -->
+                  <select class="form-select" formControlName="passing_year" [ngClass]="{'is-invalid': ((isProfileSubmitted || prf.passing_year.touched) && prf.passing_year.invalid) || doborpassingyear}" (change)="checkDoborPassingYear();">
+                    <option value="">-- Select Year --</option>
+                    <option *ngFor="let year of years" [value]="year.year">{{year.year}}</option>
+                  </select>
+                  <span class="invalid-feedback" *ngIf="prf.passing_year.hasError('required')">Please select year of leaving</span>
+                  <span class="invalid-feedback" *ngIf="doborpassingyear">Please check year of leaving or Date of Birth</span>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="pills-profile-two" role="tabpanel" aria-labelledby="pills-profile-two-tab">
+              <div class="row align-items-center">
+                <div class="col-6"><h4 class="fw-bold mt-3">2. Address Details</h4></div>
+                <div class="col-6 text-end">
+                  <button type="button" class="btn btn-warning btn-sm me-3" (click)="changeTab('pills-profile-one-tab')">Previous</button>
+                  <button type="button" class="btn btn-warning btn-sm" (click)="changeTab('pills-profile-three-tab')">Next</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>Address Line 1</label>
+                  <input type="text" formControlName="address_1" class="form-control" placeholder="Address Line 1" />
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>Address Line 2</label>
+                  <input type="text" formControlName="address_2" class="form-control" placeholder="Address Line 2" />
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>Country</label>
+                  <select formControlName="country" #country (change)="getState(country.value)" class="form-select">
+                    <option value="">Select Country</option>
+                    <option *ngFor="let country of countries" value="{{country.country_id}}">{{country.country_name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>State</label>
+                  <select formControlName="state" #state (change)="getCity(state.value)" class="form-select">
+                    <option value="">Select State</option>
+                    <option *ngFor="let state of states" value="{{state.state_id}}">{{state.state_name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>City</label>
+                  <select formControlName="city" class="form-select">
+                    <option value="">Select City</option>
+                    <option *ngFor="let city of cities" value="{{city.city_id}}">{{city.city_name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>Pin Code</label>
+                  <input type="text" formControlName="pin_code" class="form-control" placeholder="Pin Code" />
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="pills-profile-three" role="tabpanel" aria-labelledby="pills-profile-three-tab">
+              <div class="row align-items-center">
+                <div class="col-6"><h4 class="fw-bold mt-3">3. Professional Details</h4></div>
+                <div class="col-6 text-end">
+                  <button type="button" class="btn btn-warning btn-sm" (click)="changeTab('pills-profile-two-tab')">Previous</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>Profession</label>
+                  <select formControlName="profession" class="form-select">
+                    <option value="">Select Profession</option>
+                    <option value="Business">Business</option>
+                    <option value="Service">Service</option>
+                    <option value="Home Maker">Home Maker</option>
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>Organization</label>
+                  <input type="text" formControlName="organizaiton" class="form-control" placeholder="Organization" />
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>Designation</label>
+                  <input type="text" formControlName="designation" class="form-control" placeholder="Designation" />
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>Country</label>
+                  <select formControlName="organization_country" #organizationCountry (change)="getState(organizationCountry.value,'organization')" class="form-select">
+                    <option value="">Select Country</option>
+                    <option *ngFor="let country of countries" value="{{country.country_id}}">{{country.country_name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>State</label>
+                  <select formControlName="organization_state" #organizationState (change)="getCity(organizationState.value,'organization')" class="form-select">
+                    <option value="">Select State</option>
+                    <option *ngFor="let state of organizationStates" value="{{state.state_id}}">{{state.state_name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-2">
+                  <label>City</label>
+                  <select formControlName="organization_city" class="form-select">
+                    <option value="">Select City</option>
+                    <option *ngFor="let city of organizationCities" value="{{city.city_id}}">{{city.city_name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-end">
+            <button type="submit" class="btn btn-secondary-auto">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="nav-password" role="tabpanel" aria-labelledby="nav-password-tab">
+      <div class="row">
+        <div class="col-lg-4 col-sm-6 offset-lg-4 offset-sm-3">
+          <div class="mt-5 bg-white p-3 shadow rounded">
+            <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+              <div class="mb-2">
+                <label>Current Password</label>
+                <input type="password" formControlName="current_password" class="form-control" placeholder="Current Password" [ngClass]="{'is-invalid': (isPasswordSubmitted || pf.current_password.touched) && pf.current_password.invalid }">
+                <span class="invalid-feedback" *ngIf="pf.current_password.hasError('required')">Enter Current Password !</span>
+              </div>
+              <div class="mb-2">
+                <label>New Password</label>
+                <input type="password" formControlName="new_password" class="form-control" placeholder="New Password" [ngClass]="{'is-invalid': (isPasswordSubmitted || pf.new_password.touched) && pf.new_password.invalid }">
+                <span class="invalid-feedback" *ngIf="pf.new_password.hasError('required')">Enter New Password !</span>
+                <span class="invalid-feedback" *ngIf="pf.new_password.hasError('minlength') || pf.new_password.hasError('maxlength')">Password lenght should be 6 - 18 characters</span>
+              </div>
+              <div class="mb-2">
+                <label>Confirm Password</label>
+                <input type="password" formControlName="confirm_new_password" class="form-control" placeholder="Confirm Password" [ngClass]="{'is-invalid': (isPasswordSubmitted || pf.confirm_new_password.touched) && pf.confirm_new_password.invalid }">
+                <span class="invalid-feedback" *ngIf="pf.confirm_new_password.hasError('required')">Enter Confirm Password !</span>
+                <span class="invalid-feedback" *ngIf="pf.confirm_new_password.hasError('matching')">Confirm Password does not match</span>
+              </div>
+              <div class="text-end">
+                <button type="submit" class="btn btn-secondary-auto">Change</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="nav-pay-history" role="tabpanel" aria-labelledby="nav-pay-history-tab">
+      <div class="bg-white p-2 rounded shadow table-responsive">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>S.no.</th>
+              <th>Order No.</th>
+              <th>Transition id</th>
+              <th>Amount</th>
+              <th>Payment Method</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of payHistory; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{item.order_id}}</td>
+              <td>{{item.txn_id}}</td>
+              <td>{{item.txn_amount}}/-</td>
+              <td>{{item.payment_mode}}</td>
+              <td>{{item.updated_at | date:'dd MMM, y, hh:mm:ss a'}}</td>
+              <td><button type="button" class="btn btn-warning btn-sm" (click)="downloadImage('invoice'+i,item.order_id)"><i class="fas fa-download"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-none">
+        <div class="invoice-wrapper p-3 bg-white" id="invoice{{i}}" style="width: 400px;" *ngFor="let item of payHistory; let i = index">
+          <div class="fs-3 fw-bold text-center mb-3">Invoice</div>
+          <div class="invoice-header d-flex justify-content-between align-items-center">
+            <div class="logo"><img src="assets/images/logo.png" alt="" width="170px"></div>
+            <div><strong>Order No. : </strong>{{item.order_id}}</div>
+          </div>
+          <div class="p-2">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Name</td>
+                  <td class="text-end">{{item.first_name}}</td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td class="text-end">{{item.email}}</td>
+                </tr>
+                <tr>
+                  <td>Mobile No.</td>
+                  <td class="text-end">{{item.fathers_mobile_no}}</td>
+                </tr>
+                <tr>
+                  <td>Plan</td>
+                  <td class="text-end">{{item.subscription_name}}</td>
+                </tr>
+                <tr>
+                  <td>Duration</td>
+                  <td class="text-end" *ngIf="item.subscription_duration != 'lifetime'">{{item.subscription_duration}} Days</td>
+                  <td class="text-end" *ngIf="item.subscription_duration == 'lifetime'">{{item.subscription_duration}}</td>
+                </tr>
+                <tr>
+                  <td>Transaction Date</td>
+                  <td class="text-end">{{item.updated_at | date:'d/M/yy, h:mm a'}}</td>
+                </tr>
+                <tr class="fw-bold">
+                  <td>Total Amount</td>
+                  <td class="text-end">{{item.txn_amount}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-5 text-center fw-bold">
+            (it is a computer generated copy. it's not required signature.)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="pills-privacy" role="tabpanel" aria-labelledby="pills-privacy-tab">
+      <div class="bg-white rounded-2 shadow-sm p-3 mt-2">
+        <form [formGroup]="privacyForm" (ngSubmit)="submitPrivacy()">
+          <table class="table table-sm">
+            <tbody>
+              <tr>
+                <td>Mobile No.</td>
+                <td>
+                  <div class="row justify-content-end">
+                    <div class="col-3">
+                      <select formControlName="mobilePrivacy" class="form-select form-select-sm privacy">
+                        <option value="0">Public</option>
+                        <option value="1">Only Me</option>
+                      </select>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>
+                  <div class="row justify-content-end">
+                    <div class="col-3">
+                      <select formControlName="emailPrivacy" class="form-select form-select-sm privacy">
+                        <option value="0">Public</option>
+                        <option value="1">Only Me</option>
+                      </select>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="mt-2 text-end">
+            <button type="submit" class="btn btn-secondary-auto btn-sm">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div> -->
+  </div>
+</section>
+<div id="receipt" #screen class="d-none" style="width: 400px;"></div>
+<div id="download" class="d-none">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>

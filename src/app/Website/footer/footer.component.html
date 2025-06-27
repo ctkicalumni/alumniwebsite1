@@ -1,0 +1,96 @@
+<!--Footer-->
+<div *ngFor="let school of schoolInfo">
+<footer style="background-image: url('assets/images/banner/banner_2.jpg');" >
+  <div class="footer-upper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="assets/images/logo.png" width="250" class="mb-3" alt="">
+          <p>Christ the King family is one of its kind. We are not just about studying and passing out exams. We are the life long support of our alums. Taking this view into consideration we have come up with the 'Christ The King Alumni Association' as a forum for interaction for all alums.</p>
+        </div>
+        <div class="col-md-2">
+          <div class="useful-links">
+            <h4>ABOUT</h4>
+            <ul class="links">
+              <li><a routerLink="/know-us">KNOW US</a></li>
+              <li><a routerLink="/about-school">ABOUT SCHOOL</a></li>
+              <li><a routerLink="/aims-and-objectives">AIMS & OBJECTIVES</a></li>
+              <li><a routerLink="/membership">MEMBERSHIP</a></li>
+              <li><a routerLink="/board-of-member">BOARD OF MEMBERS</a></li>
+              <li><a routerLink="/former-principal">FORMER PRINCIPALS</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="useful-links">
+            <h4>OTHER LINKS</h4>
+            <ul class="links">
+              <!-- <li><a routerLink="/gallery">GALLERY</a></li> -->
+              <!-- <li><a routerLink="/faq">FAQs</a></li> -->
+              <!-- <li><a routerLink="/wall-of-fame">WALL OF FAME</a></li> -->
+              <!-- <li><a href="#">DONATE</a></li> -->
+              <li><a routerLink="/privacy-policy">PRIVACY POLICY</a></li>
+              <li><a routerLink="/refund-and-cancellation-policy">REFUND AND CANCELLATION POLICY</a></li>
+              <li><a routerLink="/terms-and-conditions">TERMS AND CONDITIONS</a></li>
+              <li><a routerLink="/site-map">SITE MAP</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="useful-links">
+          <h4>CONTACT INFO</h4>
+          <div class="">
+            <i class="fas fa-phone-alt text-auto me-2"></i> <span class="text-secondary-auto">{{school.phone_num1}}</span>
+          </div>
+          <div class="mb-3">
+            <i class="fas fa-phone-alt text-auto me-2"></i> <span class="text-secondary-auto">{{school.phone_num2}}</span>
+          </div>
+          <div class="mb-3">
+            <i class="fas fa-envelope text-auto me-2"></i> <span class="text-secondary-auto">{{school.email}}</span>
+          </div>
+          <div class="mb-3">
+            <i class="fas fa-map-marker-alt text-auto me-2"></i> <span class="text-secondary-auto">{{school.address}} {{school.postal_code}}</span>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-lower">
+    &#169; Copyright 2021-2022 Developed And Maintained By <a href="https://uabinfosol.com/" target="_blank">UAB INFOSOL PVT. LTD.</a>
+  </div>
+</footer>
+
+<div class="side-btns-panel">
+  <a href="javascript:void(0)" (click)="toggleSidePanel();" class="side-panel-close {{showhidearrow}}"><i class="fas fa-caret-right"></i></a>
+  <div class="side-btns {{showhidepanel}}">
+    <div class="icon-wrap">
+      <div class="icon-text">Call Now</div>
+      <a href="tel:+91{{school.phone_num1}}" class="icon-box"><i class="fas fa-phone-alt"></i></a>
+    </div>
+    <div class="icon-wrap">
+      <div class="icon-text">Enquiry</div>
+      <a href="javascript:void(0)" class="icon-box" data-bs-toggle="modal" href="#enquiryModal" role="button"><i
+          class="fas fa-headset"></i></a>
+    </div>
+    <div class="icon-wrap">
+      <div class="icon-text">Whatsapp</div>
+      <a href="https://api.whatsapp.com/send?phone=+91{{school.phone_num1}}" target="_blank" class="icon-box"><i
+          class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="enquiryModal" aria-hidden="true" aria-labelledby="enquiryModalLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="text-end">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-enquiry-form></app-enquiry-form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!--End-Footer-->

@@ -1,0 +1,38 @@
+.card-wrapper {
+  width: 500px;
+  height: 280px;
+  background: #efefef;
+  padding-top: 10px;
+  padding-left: 10px;
+  position: relative;
+}
+.card-inner-wrapper {
+  width: calc(500px - 20px);
+  height: calc(280px - 20px);
+  background: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #666;
+}
+.user-image {
+  width: 100px;
+  height: 100px;
+  background-size: 120px !important;
+  background-position:center -5px !important;
+  border-radius: 50%;
+}
+.id-heading {
+  font-size: 12px;
+}
+.id-info {
+  font-size: 14px;
+  margin-top: -5px;
+}
+.draft-file {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 30px 30px !important;
+}

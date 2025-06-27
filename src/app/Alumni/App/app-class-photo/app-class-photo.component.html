@@ -1,0 +1,81 @@
+<app-dash-header></app-dash-header>
+
+<nav class="breadcrumb-wrapper" id="breadcrumbWrapper" aria-label="breadcrumb">
+  <ol class="breadcrumb m-0 animate__animated animate__slideInDown">
+    <li class="breadcrumb-item">Class Photo</li>
+  </ol>
+</nav>
+<section class="section">
+  <div class="container">
+    <div class="bg-white shadow-sm p-2 rounded-3 mb-3">
+      <div class="row">
+        <div class="col-lg-4 col-md-8 offset-lg-8 offset-md-4">
+          <form [formGroup]="filterForm" (ngSubmit)="getGallery()">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <strong>Search :</strong>
+              </div>
+              <div class="col">
+                <select formControlName="searchBy" class="form-select form-select-sm">
+                  <option value="all">All</option>
+                  <option value="by-Year">By Year</option>
+                  <option value="by-class">By Class</option>
+                </select>
+              </div>
+              <div class="col">
+                <input type="text" formControlName="search" class="form-control form-control-sm" placeholder="Search">
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-secondary-auto btn-sm">Search</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="fw-bold text-center fs-5 mt-5" *ngIf="classPhotots.length == 0">
+      Class Photo not found !
+    </div>
+    <div class="row" *ngIf="classPhotots.length != 0">
+      <div class="col-md-4 col-sm-6 mb-3" *ngFor="let classPhoto of classPhotots; let i = index; let first = first">
+        <div class="card shadow">
+          <img src="{{classPhoto.image}}" class="card-image card-img-top" (click)="showModal()" data-bs-target="#mediaCarousel" [attr.data-bs-slide-to]="i" [attr.aria-label]="'Slide '+i+1" [ngClass]="{'active' : first}" [attr.aria-current]="first?true:null" role="button" alt="">
+          <div class="card-body">
+            <h5><strong>Year : </strong>{{classPhoto.year}}</h5>
+            <h5><strong>Class : </strong>{{classPhoto.class_name}}</h5>
+            <p class="card-text"><strong>Description : </strong>{{classPhoto.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<button type="button" class="d-none" id="callModal" data-bs-toggle="modal" data-bs-target="#galleryModal"></button>
+<div class="modal fade" id="galleryModal" aria-hidden="true" aria-labelledby="galleryModalLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="galleryModalLabel">Gallery</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="mediaCarousel" class="carousel slide" data-bs-interval="false">
+          <div class="carousel-inner">
+            <div class="carousel-item" *ngFor="let classPhoto of classPhotots; let i = index;" [ngClass]="{'active' : i == 0 }">
+              <img [src]="classPhoto.image" class="rounded d-block w-100">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#mediaCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#mediaCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-screen-loader [isShow]="isLoading"></app-screen-loader>

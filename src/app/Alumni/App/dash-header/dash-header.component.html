@@ -1,0 +1,142 @@
+<header class="main-header">
+  <div class="company-logo d-flex">
+    <button type="button" class="header-button menu-btn d-block d-sm-none" (click)="sideMenu()">
+      <div class="bars" id="bars">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </button>
+    <a routerLink="/alumni/dashboard" class="full-logo"><img src="assets/images/logo.png" /></a>
+  </div>
+  <div class="header-btns">
+    <div class="left-box">
+      <button type="button" class="header-button menu-btn d-none d-sm-block" (click)="sideMenu()">
+        <div class="bars arrow" id="bars2">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </button>
+    </div>
+    <div class="right-box d-flex">
+      <!-- <button type="button" class="header-button"><i class="fas fa-bell"></i></button> -->
+      <div class="dropdown">
+        <!-- <button type="button" class="header-button remove-arrow dropdown-toggle" id="profiledropdown"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="{{imageSrc}}">
+        </button> -->
+        <div class="short-profile remove-arrow dropdown-toggle" id="profiledropdown" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+          <div class="row align-items-center g-0">
+            <div class="col-auto">
+              <img src="{{imageSrc}}">
+            </div>
+            <div class="col-auto">
+              <div class="username">{{userInfo.first_name.split(" ")[0]}}</div>
+              <div class="membership text-danger" *ngIf="userInfo.left_days > 0 || userInfo.left_days == 'lifetime'">{{userInfo.membership_type}}</div>
+            </div>
+          </div>
+        </div>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profiledropdown">
+          <li>
+            <h6 class="dropdown-header" style="font-weight:bold;text-transform:uppercase;">{{userInfo.first_name}}</h6>
+          </li>
+          <li><a class="dropdown-item" routerLink="/alumni/profile"><i class="fas fa-user"></i> Account</a></li>
+          <li><a class="dropdown-item" routerLink="/alumni/membership-card"><i class="fas fa-id-card-alt"></i> Membership Card</a></li>
+          <!-- <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" href="#"><i class="far fa-life-ring"></i> Support</a></li> -->
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item text-danger" style="cursor: pointer;" (click)="logout()"><i class="fas fa-power-off"></i> Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+<div style="height:90px"></div>
+<notifier-container></notifier-container>
+<nav class="side-navbar" id="sideNavbar">
+  <ul class="side-navbar-nav">
+    <li class="side-navbar-item" *ngFor="let item of menuItems" [ngClass]="{'active' : currentUrl == item.url}">
+      <a [routerLink]="item.url" class="side-navbar-link">
+        <div class="side-navbar-icon"><i class="{{item.icon}}"></i></div>
+        <div class="side-navbar-text">{{item.text}}</div>
+      </a>
+    </li>
+    <!-- <li class="side-navbar-item active">
+      <a routerLink="/alumni/dashboard" class="side-navbar-link">
+        <div class="side-navbar-icon"><i class="fas fa-tachometer-alt"></i></div>
+        <div class="side-navbar-text">Dashboard</div>
+      </a>
+    </li>
+    <li class="side-navbar-item">
+      <a routerLink="/alumni/batch-mate" class="side-navbar-link">
+        <div class="side-navbar-icon"><i class="fas fa-user-friends"></i></div>
+        <div class="side-navbar-text">Search buddy</div>
+      </a>
+    </li>
+    <li class="side-navbar-item">
+      <a routerLink="/alumni/share-photo" class="side-navbar-link">
+        <div class="side-navbar-icon"><i class="far fa-images"></i></div>
+        <div class="side-navbar-text">Share Photos</div>
+      </a>
+    </li>
+    <li class="side-navbar-item">
+      <a routerLink="/alumni/class-photo" class="side-navbar-link">
+        <div class="side-navbar-icon"><i class="far fa-image"></i></div>
+        <div class="side-navbar-text">Class Photos</div>
+      </a>
+    </li>
+    <li class="side-navbar-item">
+      <a routerLink="/alumni/voting" class="side-navbar-link">
+        <div class="side-navbar-icon"><i class="fas fa-vote-yea"></i></div>
+        <div class="side-navbar-text">Election</div>
+      </a>
+    </li>
+    <li class="side-navbar-item">
+      <a routerLink="/alumni/news" class="side-navbar-link">
+        <div class="side-navbar-icon"><i class="far fa-newspaper"></i></div>
+        <div class="side-navbar-text">News</div>
+      </a>
+    </li>
+    <li class="side-navbar-item">
+      <a routerLink="/alumni/events" class="side-navbar-link">
+        <div class="side-navbar-icon"><i class="fas fa-calendar-day"></i></div>
+        <div class="side-navbar-text">Events</div>
+      </a>
+    </li>
+    <li class="side-navbar-item">
+      <a routerLink="/alumni/gallery" class="side-navbar-link">
+        <div class="side-navbar-icon"><i class="fas fa-images"></i></div>
+        <div class="side-navbar-text">Gallery</div>
+      </a>
+    </li>
+    <li class="side-navbar-item">
+      <a routerLink="/alumni/media-gallery" class="side-navbar-link">
+        <div class="side-navbar-icon"><i class="fas fa-images"></i></div>
+        <div class="side-navbar-text">Media Gallery</div>
+      </a>
+    </li>
+    <li class="side-navbar-item">
+      <a routerLink="/alumni/wall-of-fame" class="side-navbar-link">
+        <div class="side-navbar-icon"><i class="fas fa-trophy"></i></div>
+        <div class="side-navbar-text">Wall of Fame</div>
+      </a>
+    </li>
+    <li class="side-navbar-item">
+      <a routerLink="/alumni/suggestion" class="side-navbar-link">
+        <div class="side-navbar-icon"><i class="fas fa-comment-alt"></i></div>
+        <div class="side-navbar-text">Suggestions</div>
+      </a>
+    </li>
+    <li class="side-navbar-item">
+      <a routerLink="/contact-us" class="side-navbar-link">
+        <div class="side-navbar-icon"><i class="fas fa-phone-square-alt"></i></div>
+        <div class="side-navbar-text">Contact Us</div>
+      </a>
+    </li> -->
+  </ul>
+</nav>

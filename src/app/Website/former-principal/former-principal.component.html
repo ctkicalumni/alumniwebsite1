@@ -1,0 +1,51 @@
+<app-header></app-header>
+<app-breadcrumbs [mainTitle]="mainTitle" [pageTitle]="pageTitle"></app-breadcrumbs>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-3" *ngFor="let formerPrincipal of formerPrincipals">
+        <div class="shadow rounded p-2 bg-light">
+          <div class="row">
+            <div class="col-4">
+              <div class="img-wrapper" style="background-image: url('{{formerPrincipal.former_image}}');">
+                <div class="inner-wrapper"></div>
+                <img src="{{formerPrincipal.former_image}}" />
+              </div>
+            </div>
+            <div class="col-8">
+              <h3 class="fs-5">{{formerPrincipal.former_person_name}}</h3>
+              <div class="row">
+                <div class="col-3">
+                  <strong>From</strong>
+                </div>
+                <div class="col-1">
+                  <strong>:</strong>
+                </div>
+                <div class="col-7">
+                  {{formerPrincipal.former_from_date | date: 'YYYY'}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-3">
+                  <strong>To</strong>
+                </div>
+                <div class="col-1">
+                  <strong>:</strong>
+                </div>
+                <div class="col-7" *ngIf="formerPrincipal.former_to_date != '0000-00-00'">
+                  {{formerPrincipal.former_to_date | date: 'YYYY'}}
+                </div>
+                <div class="col-7" *ngIf="formerPrincipal.former_to_date == '0000-00-00'">
+                  Till Date
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>

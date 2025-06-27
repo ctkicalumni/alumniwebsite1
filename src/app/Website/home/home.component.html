@@ -1,0 +1,153 @@
+<app-header></app-header>
+<!--Slider-->
+<div id="mainCarousel" class="carousel carousel-image slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#mainCarousel" *ngFor="let slider of sliders;let index = index;let isFirst = first" [attr.data-bs-slide-to]="index" [ngClass]="{active:isFirst}" [attr.aria-label]="'Slide '+index"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item" *ngFor="let slider of sliders;let index = index;let isFirst = first" [ngClass]="{active:isFirst}" style="background-image:url('{{slider.image}}');">
+      <div class="carousel-item-image-wrapper"></div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<!--Slider-->
+<!--About-Us-->
+<div class="container my-5">
+  <div class="row">
+    <div class="col-sm-7">
+      <h2 class="heading">KNOW US</h2>
+      <p>Christ the King family is one of its kind. We are not just about studying and passing out exams. We are the life long support of our alums. Taking this view into consideration we have come up with the 'Christ The King Alumni Association' as a forum for interaction for all alums.</p>
+      <p>Christ the King Alumni Association is a nodal forum for its alumni to initiate workmanship and brotherhood among the alums and to provide constructive direction to take the torch of the college in the field of life.</p>
+    </div>
+    <div class="col-sm-5">
+      <img src="assets/images/about_us.jpg" class="img-fluid rounded" />
+    </div>
+  </div>
+</div>
+<!--End-About-Us-->
+<!--Birthdays-->
+<div class="birthday-box my-5" style="background-image: url('assets/images/birthday-background.jpg');">
+  <div class="birthday-box-wrapper py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <h2 class="heading text-white">alumni birthday</h2>
+          <blockquote class="birthday-wish">May this birthday turn you into the person you have always wished you could
+            be.</blockquote>
+        </div>
+        <div class="col-sm-6">
+          <div id="brithdayCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item" *ngFor="let birthday of birthdays;let index = index;let isFirst = first" [ngClass]="{active:isFirst}">
+                <div class="profile-box-wrapper">
+                  <div class="profile-box">
+                    <div class="profile-picture" style="background-image: url('{{birthday.student_photo}}');">
+                    </div>
+                    <div class="profile-information">
+                      <h5 class="profile-name">{{birthday.first_name}}</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#brithdayCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#brithdayCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End-Birthdays-->
+<!--News-Event-->
+<div class="container my-5">
+  <div class="row">
+    <div class="col-lg-5 col-md-6 mb-5 mb-lg-0">
+      <h2 class="heading">NEWS</h2>
+      <div class="news-event-wrapper">
+        <div class="news-event-box" *ngFor="let news of news">
+          <div class="news-event-full-date">
+            <div class="news-event-day">{{news.date | date : 'EEE'}}</div>
+            <div class="news-event-date">{{news.date | date : 'dd'}}</div>
+            <div class="news-event-month">{{news.date | date : 'MMM'}}</div>
+          </div>
+          <div class="news-event-details">
+            <h3 class="news-event-title">{{news.news_title}}</h3>
+            <p class="news-event-description">{{news.description}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="d-grid">
+        <a href="#!" class="btn btn-secondary-auto">VIEW ALL EVENTS</a>
+      </div>
+    </div>
+    <div class="col-lg-2 d-none d-lg-block"></div>
+    <div class="col-lg-5 col-md-6">
+      <h2 class="heading">UPCOMING EVENTS</h2>
+      <div class="news-event-wrapper">
+        <div class="news-event-box" *ngFor="let event of events">
+          <div class="news-event-full-date">
+            <div class="news-event-day">{{event.from_date | date : 'EEE'}}</div>
+            <div class="news-event-date">{{event.from_date | date : 'dd'}}</div>
+            <div class="news-event-month">{{event.from_date | date : 'MMM'}}</div>
+          </div>
+          <div class="news-event-details">
+            <h3 class="news-event-title">{{event.title}}</h3>
+            <p class="news-event-description">{{event.description}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="d-grid">
+        <a href="#!" class="btn btn-secondary-auto">VIEW ALL EVENTS</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End-News-Event-->
+<!--Gallery-->
+<!-- <div class="website-gallery mt-5">
+  <div class="gallery-thumbnail" *ngFor="let gallery of galleries" style="background-image: url('{{gallery.image}}');">
+    <a routerLink="gallery/{{gallery.gallery_id}}">
+      <div class="d-flex justify-content-between">
+        <div>
+          <h3 class="text-white fs-5">{{gallery.album_title}}</h3>
+        </div>
+        <div class="text-white">
+          {{gallery.date | date: 'dd-MM-yyyy'}}
+        </div>
+      </div>
+    </a>
+  </div>
+</div> -->
+<!--End-Gallery-->
+<!--Gallery-->
+<div class="website-gallery mt-5">
+  <div class="gallery-thumbnail" *ngFor="let gallery of galleries; let i = index" [ngClass]="{'d-none d-md-block': i > 2}" style="background-image: url('{{gallery.image}}');">
+      <a routerLink="gallery/{{gallery.gallery_id}}">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h3 class="text-white fs-5">{{gallery.album_title}}</h3>
+          </div>
+          <div class="text-white">
+            {{gallery.date | date: 'dd-MM-yyyy'}}
+          </div>
+        </div>
+      </a>
+  </div>
+</div>
+<!--End-Gallery-->
+<app-footer></app-footer>

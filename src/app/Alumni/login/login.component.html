@@ -1,0 +1,44 @@
+<app-header></app-header>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 offset-lg-4 offset-md-3">
+        <div class="alert alert-dismissible fade {{notification['class']}} mb-2" role="alert" *ngIf="notification">
+          {{notification['message']}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <form class="g-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="card">
+          <div class="card-header text-center">
+            Login to your account
+          </div>
+          <div class="card-body">
+            <div class="mb-2">
+              <input type="text" formControlName="mobile_no" class="form-control" placeholder="Mobile No./Email" [ngClass]="{'is-invalid': (isSubmitted || f.mobile_no.touched) && f.mobile_no.invalid}" />
+              <span class="invalid-feedback" *ngIf="f.mobile_no.hasError('required')">Please enter Mobile No./Email</span>
+            </div>
+            <div>
+              <input type="password" formControlName="password" class="form-control" placeholder="Password" [ngClass]="{'is-invalid': (isSubmitted || f.password.touched) && f.password.invalid}" />
+              <span class="invalid-feedback" *ngIf="f.password.hasError('required')">Please enter Password</span>
+            </div>
+          </div>
+          <div class="card-footer text-muted">
+            <div class="row align-items-center">
+              <div class="col-6 text-start"><a routerLink="/alumni/forgot-password">Forgot Password ?</a></div>
+              <div class="col-6 text-end">
+                <button type="submit" class="btn btn-auto btn-sm">Login</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      </div>
+      <div class="text-center pt-5">
+        Don't have an account, <a routerLink="registration">Join Us !</a>
+      </div>
+    </div>
+  </div>
+</section>
+<app-screen-loader [isShow]="isLoadershow"></app-screen-loader>
+<app-footer></app-footer>

@@ -1,0 +1,61 @@
+<app-dash-header></app-dash-header>
+
+<nav class="breadcrumb-wrapper" id="breadcrumbWrapper" aria-label="breadcrumb">
+  <ol class="breadcrumb m-0 animate__animated animate__slideInDown">
+    <li class="breadcrumb-item">Search Buddy</li>
+    <!-- <li class="breadcrumb-item active" aria-current="page">dfsdf</li> -->
+  </ol>
+</nav>
+<section class="section">
+  <div class="mb-2 p-2 bg-white shadow-sm rounded-3">
+      <div class="row align-items-center">
+        <div class="col-lg-8 col-md-4 mb-md-0" [ngClass]="{'mb-2' : searchValue.length != 0}">
+          <div class="flex">
+            <div class="badge rounded-pill bg-light text-dark border border-secondary mx-1" *ngFor="let value of searchValue;let i = index">{{searchName[i]}} : {{value}} <i class="fas fa-times-circle ms-1 text-danger" (click)="removeMe(i)"></i></div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-8">
+          <form [formGroup]="filterForm" (ngSubmit)="getBatchmates()">
+            <div class="row align-items-center">
+              <div class="col-auto fw-bold">
+                Search :
+              </div>
+              <div class="col">
+                <select formControlName="searchBy" #searchBy id="searchBy" (change)="ifChange(searchBy.value)" class="form-select form-select-sm">
+                  <option value="all">All</option>
+                  <option value="student_registration.first_name,like,Name">By Name</option>
+                  <option value="student_registration.adm_date,where,Passing Year">By Passing Year</option>
+                  <option value="class_master.class_name,like,Class">By Class</option>
+                  <option value="cities.city_name,like,Class">By City</option>
+                </select>
+              </div>
+              <div id="search" class="col d-none">
+                <input type="text" formControlName="search" class="form-control form-control-sm" placeholder="Search">
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-secondary-auto btn-sm">Search</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+  <div class="fw-bold text-center fs-5 mt-5" *ngIf="batchMates.length == 0">
+    Buddy not found !
+  </div>
+  <div class="row" *ngIf="batchMates.length != 0">
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-2" *ngFor="let batchmate of batchMates">
+      <div class="card shadow">
+        <img src="{{batchmate.student_photo}}" class="object-cover object-align-top card-img-top" height="250px" alt="...">
+        <div class="card-body">
+          <h5 class="card-title m-0"><strong>Name : </strong>{{batchmate.first_name}}</h5>
+          <p class="card-text m-0"><strong>Passing Year : </strong>{{batchmate.adm_date}}</p>
+          <p class="card-text m-0"><strong>Class : </strong>{{batchmate.class_name}}</p>
+          <p class="card-text m-0" *ngIf="batchmate.mobilePrivacy == 0"><strong>Mobile No. : </strong>{{batchmate.phone_code}} {{batchmate.fathers_mobile_no}}</p>
+          <p class="card-text m-0" *ngIf="batchmate.emailPrivacy == 0"><strong>Email : </strong>{{batchmate.email}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-screen-loader [isShow]="isLoading"></app-screen-loader>

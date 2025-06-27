@@ -1,0 +1,25 @@
+.feedback-rating .feedback-rating-icon {
+  font-size: 50px;
+}
+.feedback-rating-icon.active {
+  color: #0abf53;
+}
+.feedback-category-option {
+  background: #eee;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ccc;
+}
+.feedback-category-option.active {
+  border-color: #0abf53;
+}
+.feedback-category-option:first-child {
+  margin-left: 0;
+}
+.feedback-category-option:last-child {
+  margin-right: 0;
+}

@@ -1,0 +1,71 @@
+<app-dash-header></app-dash-header>
+
+<nav class="breadcrumb-wrapper" id="breadcrumbWrapper" aria-label="breadcrumb">
+  <ol class="breadcrumb m-0 animate__animated animate__slideInDown">
+    <li class="breadcrumb-item">Share Photo</li>
+    <!-- <li class="breadcrumb-item active" aria-current="page" *ngIf="album_id">Album</li> -->
+  </ol>
+</nav>
+<section class="section">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="bg-white p-3 rounded-3 shadow">
+        <form [formGroup]="groupPhotoForm" (ngSubmit)="onSubmit()" class="g-3" >
+          <div class="row">
+            <div class="col-6 mb-3">
+              <select class="form-select" formControlName="year" [ngClass]="{'is-invalid': (isSubmitted || form.year.touched) && form.year.invalid}">
+                <option value="">-- Select Year --</option>
+                <option *ngFor="let year of years" [value]="year.year">{{year.year}}</option>
+              </select>
+              <span class="invalid-feedback" *ngIf="form.year.hasError('required')">Please select year !</span>
+            </div>
+            <div class="col-6 mb-3">
+              <select class="form-select" formControlName="class" [ngClass]="{'is-invalid': (isSubmitted || form.class.touched) && form.class.invalid}">
+                <option value="">-- Select Class --</option>
+                <option *ngFor="let class of classes" [value]="class.id">{{class.class_name}}</option>
+              </select>
+              <span class="invalid-feedback" *ngIf="form.class.hasError('required')">Please select class !</span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <input type="file" (change)="onFileSelect($event)" accept=".png,.jpg,.jpeg" class="form-control" [ngClass]="{'is-invalid': (isSubmitted || form.image.touched) && form.image.invalid}"/>
+            <input type="hidden" formControlName="image"/>
+            <span class="invalid-feedback" *ngIf="form.image.hasError('required')">Please select image !</span>
+          </div>
+          <div class="mb-3">
+            <textarea formControlName="description" class="form-control" rows="4"></textarea>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-auto">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-6" *ngFor="let grouptPhoto of grouptPhotos">
+          <!-- <div class="img-wrapper" style="background-image: url('{{grouptPhoto.image}}');">
+            <div class="inner-wrapper d-flex flex-column justify-content-between p-2">
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-warning btn-sm" *ngIf="grouptPhoto.status == 0">Pending</button>
+                <button class="btn btn-success btn-sm" *ngIf="grouptPhoto.status == 1">Approved</button>
+                <button class="btn btn-danger btn-sm" *ngIf="grouptPhoto.status == 2">Rejected</button>
+              </div>
+            </div>
+            <img src="{{grouptPhoto.image}}" height="160px" />
+          </div> -->
+          <div class="card mb-2">
+            <img src="{{grouptPhoto.image}}" class="object-cover card-img-top" width="100%" height="150px" alt="">
+            <div class="card-body p-0">
+              <div class="d-grid">
+                <button class="btn btn-warning btn-sm rounded-0" *ngIf="grouptPhoto.status == 0">Pending</button>
+                <button class="btn btn-success btn-sm rounded-0" *ngIf="grouptPhoto.status == 1">Approved</button>
+                <button class="btn btn-danger btn-sm rounded-0" *ngIf="grouptPhoto.status == 2">Rejected</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,57 @@
+ul.tree,
+ul.tree ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.tree a {
+  text-decoration: none;
+}
+.tree>li>a {
+  font-size: 16px !important;
+  background: rgba(var(--secondary-color),0.2);
+  padding: 1px 4px;
+  border: 1px solid rgba(var(--secondary-color),1);
+  display: inline-block;
+  border-radius: 6px;
+  margin-top: 10px;
+  width: auto;
+}
+.tree ul {
+  margin-left: 20px !important;
+  margin-top: 5px !important;
+}
+.tree ul>li {
+  border-left: 1px solid black;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.tree ul>li a {
+  font-size: 12px;
+  padding: 5px 0;
+}
+// .tree ul>li:first-child:after {
+//   content: "";
+//   width:1.1px;
+//   height:50%;
+//   background-color:#fff;
+//   position: absolute;
+//   top:0px;
+//   left: -1px;
+// }
+.tree ul>li:last-child:after {
+  content: "";
+  width:1.1px;
+  height:50%;
+  background-color:#fff;
+  position: absolute;
+  bottom:0px;
+  left: -1px;
+}
+.bar {
+  background: black;
+  width: 20px !important;
+  height: 1px;
+  margin-right: 5px;
+}

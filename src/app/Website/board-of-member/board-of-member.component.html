@@ -1,0 +1,22 @@
+<app-header></app-header>
+<app-breadcrumbs [mainTitle]="mainTitle" [pageTitle]="pageTitle"></app-breadcrumbs>
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3" *ngFor="let boardOfMeber of boardOfMebers">
+        <div class="shadow rounded p-2 bg-light" style="height: 330px;">
+          <div class="img-wrapper-fixed float-start me-2" style="background-image: url('{{boardOfMeber.member_image}}'); background-position: center top; width: 100px; height: 100px;">
+            <div class="inner-wrapper-fixed"></div>
+            <img src="{{boardOfMeber.member_image}}" />
+          </div>
+          <h3 class="fs-5 m-0">{{boardOfMeber.member_name}}</h3>
+          <h4 class="fs-6 m-0 text-danger">({{boardOfMeber.member_post_in_committee}})</h4>
+          <p class="mt-2">{{boardOfMeber.member_description}}</p>
+          <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem, doloremque. Beatae delectus eos aperiam minima enim provident reiciendis impedit blanditiis sed, quis perferendis nam sint. Expedita iste aut veniam labore molestiae. Optio culpa blanditiis maiores quis quos tenetur, aliquid dolores praesentium illo architecto odit ea repellendus, quae quia consequatur reiciendis provident, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem, doloremque. Beatae delectus eos aperiam minimddd</p> -->
+          <div style="clear:left;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

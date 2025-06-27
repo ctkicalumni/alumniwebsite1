@@ -1,0 +1,130 @@
+<div class="text-center fw-bold fs-5 mb-3" *ngIf="type == '1'">
+  Membership Card
+</div>
+<div class="d-flex justify-content-center" *ngIf="type == '1'">
+  <div #memberCard class="card-wrapper" *ngFor="let data of membership">
+      <div class="card-inner-wrapper">
+          <div class="d-flex justify-content-between align-items-start">
+          <div class="logo"><img src="https://ctkalumni.org/assets/images/logo.png" alt="" width="170px"></div>
+          <div class="fw-bold btn btn-secondary-auto btn-sm">{{data.subscription_name}}</div>
+          </div>
+          <div class="d-flex mt-1 align-items-center">
+          <div class="flex-shrink-0 ps-4 d-flex flex-column align-items-center">
+              <div class="user-image" style="background:url('{{data.student_photo}}');"></div>
+              <div class="user-name">{{data.first_name}}</div>
+              <div class="user-name" *ngIf="data.subscription_duration > 0 && data.subscription_duration != 'lifetime'"><strong>Exp. on : </strong>{{data.expiry_date | date:'dd/MM/yyy'}}</div>
+          </div>
+          <div class="flex-grow-1 ps-4 id-details">
+              <div class="d-flex mb-1">
+              <div class="w-50">
+                  <div class="fw-bold id-heading">Membership ID</div>
+                  <div class="id-info">{{data.student_id}}</div>
+              </div>
+              <div class="w-50">
+                  <div class="fw-bold id-heading">Mob. No.</div>
+                  <div class="id-info">{{data.fathers_mobile_no}}</div>
+              </div>
+              </div>
+              <div class="mb-1">
+              <div class="fw-bold id-heading">Email</div>
+              <div class="id-info">{{data.email}}</div>
+              </div>
+              <div class="d-flex mb-1">
+              <div class="w-50">
+                  <div class="fw-bold id-heading">Last Attended Class</div>
+                  <div class="id-info">{{data.class_name}}</div>
+              </div>
+              <div class="w-50">
+                  <div class="fw-bold id-heading">Year of Leaving</div>
+                  <div class="id-info">{{data.adm_date}}</div>
+              </div>
+              </div>
+              <div class="d-flex mb-1">
+              <div class="w-50">
+                  <div class="fw-bold id-heading">Profession</div>
+                  <div class="id-info">{{data.profession}}</div>
+              </div>
+              <div class="w-50">
+                  <div class="fw-bold id-heading">Organization</div>
+                  <div class="id-info">{{data.organizaiton}}</div>
+              </div>
+              </div>
+              <div>
+              <div class="fw-bold id-heading">Address</div>
+                  <div class="id-info">
+                    {{data.present_address_1}}
+                    <span *ngIf="data.present_address_2 != '' && data.present_address_2 != null">, {{data.present_address_2}}</span>
+                    <span *ngIf="data.present_city != 0 && data.present_city != null">, {{data.city_name}}</span>
+                    <span *ngIf="data.present_state != 0 && data.present_state != null">, {{data.state_name}}</span>
+                    <span *ngIf="data.present_country != 0 && data.present_country != null">, {{data.country_name}}</span>
+                    <span *ngIf="data.present_postal_code != '' && data.present_postal_code != null">, {{data.present_postal_code}}</span>
+                  </div>
+              </div>
+          </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="text-center mt-3" *ngIf="type == '1'">
+  <button type="button" class="btn btn-auto" (click)="downloadMembershipCard()"><i class="fas fa-file-download me-3"></i>Download</button>
+</div>
+<div class="text-center fw-bold fs-5 mb-3" *ngIf="type == '2'">
+  Order Invoice
+</div>
+<div class="d-flex justify-content-center" *ngIf="type == '2'">
+  <div #invoice class="invoice-wrapper p-3 bg-white border" style="width: 400px;" *ngFor="let data of bill">
+    <div class="fs-3 fw-bold text-center mb-3">Invoice</div>
+    <div class="invoice-header d-flex justify-content-between align-items-center">
+        <div class="logo"><img src="https://ctkalumni.org/assets/images/logo.png" alt="" width="170px"></div>
+        <div><strong>Order No. : </strong>{{data.order_id}}</div>
+    </div>
+    <div class="p-2">
+        <table class="table">
+        <tbody>
+            <tr>
+            <td>Name</td>
+            <td class="text-end">{{data.first_name}}</td>
+            </tr>
+            <tr>
+            <td>Email</td>
+            <td class="text-end">{{data.email}}</td>
+            </tr>
+            <tr>
+            <td>Mobile No.</td>
+            <td class="text-end">{{data.fathers_mobile_no}}</td>
+            </tr>
+            <tr>
+            <td>Plan</td>
+            <td class="text-end">{{data.subscription_name}}</td>
+            </tr>
+            <tr>
+            <td>Duration</td>
+            <td class="text-end">
+              <span *ngIf="data.subscription_duration == 'lifetime'">Lifetime</span>
+              <span *ngIf="data.subscription_duration > 0 && data.subscription_duration != 'lifetime'">{{data.subscription_duration}} Days</span>
+            </td>
+            </tr>
+            <tr>
+            <td>Transaction Date</td>
+            <td class="text-end">{{data.updated_at}}</td>
+            </tr>
+            <tr class="fw-bold">
+            <td>Total Amount</td>
+            <td class="text-end">{{data.txn_amount}}/-</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="mt-5 text-center fw-bold">
+        (it is a computer generated copy. it's not required signature.)
+    </div>
+  </div>
+</div>
+<div class="text-center mt-3" *ngIf="type == '2'">
+  <button type="button" class="btn btn-auto" (click)="downloadBill()"><i class="fas fa-file-download me-3"></i>Download</button>
+</div>
+
+<div id="download" class="d-none">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>

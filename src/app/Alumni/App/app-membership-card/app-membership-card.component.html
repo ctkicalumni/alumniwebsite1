@@ -1,0 +1,87 @@
+<app-dash-header></app-dash-header>
+
+<nav class="breadcrumb-wrapper" id="breadcrumbWrapper" aria-label="breadcrumb">
+  <ol class="breadcrumb m-0 animate__animated animate__slideInDown">
+    <li class="breadcrumb-item">Membership Card</li>
+    <!-- <li class="breadcrumb-item active" aria-current="page">dfsdf</li> -->
+  </ol>
+</nav>
+<section class="section">
+  <div class="d-flex justify-content-center">
+    <div #screen class="card-wrapper" *ngFor="let user of userinfo">
+      <div class="draft-file" *ngIf="info.left_days <= 0 && info.left_days != 'lifetime'" style="background:url('assets/images/draft.png');">
+        <div class="fw-bold text-end p-3" *ngIf="info.left_days <= 0 && info.left_days != 'lifetime'"><a class="btn btn-secondary-auto btn-sm" routerLink="/alumni/dashboard">Pay</a></div>
+      </div>
+      <div class="card-inner-wrapper">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="logo"><img src="assets/images/logo.png" alt="" width="170px"></div>
+          <div class="fw-bold btn btn-secondary-auto btn-sm" *ngIf="info.left_days > 0 || info.left_days == 'lifetime'">{{info.membership_type}}</div>
+        </div>
+        <div class="d-flex mt-1 align-items-center">
+          <div class="flex-shrink-0 ps-4 d-flex flex-column align-items-center">
+            <div class="user-image" style="background:url({{user.student_photo}});"></div>
+            <div class="user-name">{{user.first_name}}</div>
+            <div class="user-name" *ngIf="info.left_days > 0 && info.left_days != 'lifetime'"><strong>Exp. on : </strong>{{user.expiry_date | date:'dd/MM/yyy'}}</div>
+          </div>
+          <div class="flex-grow-1 ps-4 id-details">
+            <div class="d-flex mb-1">
+              <div class="w-50">
+                <div class="fw-bold id-heading">Membership ID</div>
+                <div class="id-info" *ngIf="info.left_days > 0 || info.left_days == 'lifetime'">CTKAL{{user.student_id}}</div>
+                <div class="id-info" *ngIf="info.left_days <= 0 && info.left_days != 'lifetime'">NA</div>
+              </div>
+              <div class="w-50">
+                <div class="fw-bold id-heading">Mob. No.</div>
+                <div class="id-info">{{user.fathers_mobile_no}}</div>
+              </div>
+            </div>
+            <div class="mb-1">
+              <div class="fw-bold id-heading">Email</div>
+              <div class="id-info">{{user.email}}</div>
+            </div>
+            <div class="d-flex mb-1">
+              <div class="w-50">
+                <div class="fw-bold id-heading">Last Attended Class</div>
+                <div class="id-info">{{user.class_name}}</div>
+              </div>
+              <div class="w-50">
+                <div class="fw-bold id-heading">Year of Leaving</div>
+                <div class="id-info">{{user.adm_date}}</div>
+              </div>
+            </div>
+            <div class="d-flex mb-1">
+              <div class="w-50">
+                <div class="fw-bold id-heading">Profession</div>
+                <div class="id-info">{{user.profession}}</div>
+              </div>
+              <div class="w-50">
+                <div class="fw-bold id-heading">Organization</div>
+                <div class="id-info">{{user.organizaiton}}</div>
+              </div>
+            </div>
+            <div>
+              <div class="fw-bold id-heading">Address</div>
+                <div class="id-info">
+                  {{user.present_address_1}}
+                  <span *ngIf="user.present_address_2 != '' && user.present_address_2 != null">, {{user.present_address_2}}</span>
+                  <span *ngIf="user.present_city != 0 && user.present_city != null">, {{user.city_name}}</span>
+                  <span *ngIf="user.present_state != 0 && user.present_state != null">, {{user.state_name}}</span>
+                  <span *ngIf="user.present_country != 0 && user.present_country != null">, {{user.country_name}}</span>
+                  <span *ngIf="user.present_postal_code != '' && user.present_postal_code != null">, {{user.present_postal_code}}</span>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-3">
+    <button class="btn btn-warning btn-sm me-2" routerLink="/alumni/profile"><i class="fas fa-user-edit me-3"></i>Edit</button>
+    <button type="button" class="btn btn-auto btn-sm" (click)="downloadImage()" *ngIf="info.left_days > 0 || info.left_days == 'lifetime'"><i class="fas fa-file-download me-3"></i>Download</button>
+  </div>
+</section>
+
+<div id="download" class="d-none">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>

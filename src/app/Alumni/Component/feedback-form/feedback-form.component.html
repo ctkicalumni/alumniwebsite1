@@ -1,0 +1,54 @@
+<p class="text-center">We would like your feedback to imporve our website.</p>
+<p class="text-center">What is your opinion of this page?</p>
+<form [formGroup]="feedbackForm" (ngSubmit)="submit()">
+  <div class="d-flex justify-content-between feedback-rating">
+    <div class="feedback-rating-icon" (click)="selectRating(0);">
+      <label for="rating1"><i class="far fa-tired"></i></label>
+      <input type="radio" class="rating-input d-none" id="rating1" formControlName="rating" value="1">
+    </div>
+    <div class="feedback-rating-icon" (click)="selectRating(1);">
+      <label for="rating2"><i class="far fa-frown"></i></label>
+      <input type="radio" class="rating-input d-none" id="rating2" formControlName="rating" value="2">
+    </div>
+    <div class="feedback-rating-icon" (click)="selectRating(2);">
+      <label for="rating3"><i class="far fa-meh"></i></label>
+      <input type="radio" class="rating-input d-none" id="rating3" formControlName="rating" value="3">
+    </div>
+    <div class="feedback-rating-icon" (click)="selectRating(3);">
+      <label for="rating4"><i class="far fa-smile"></i></label>
+      <input type="radio" class="rating-input d-none" id="rating4" formControlName="rating" value="4">
+    </div>
+    <div class="feedback-rating-icon active" (click)="selectRating(4);">
+      <label for="rating5"><i class="far fa-laugh-beam"></i></label>
+      <input type="radio" class="rating-input d-none" id="rating5" formControlName="rating" value="5" checked>
+    </div>
+  </div>
+  <span [ngClass]="{'is-invalid': (isSubmitted || f.rating.touched) && f.rating.invalid }"></span>
+  <span class="invalid-feedback" *ngIf="f.rating.hasError('required')">Please Select Rating</span>
+  <hr/>
+  <p class="m-0">Please select your feedback category below.</p>
+  <div class="d-flex feedback-category">
+    <label for="category1" class="flex-grow-1 feedback-category-option active" (click)="selectCategory(0);">
+      Suggestion
+    </label>
+    <input type="radio" class="category-input d-none" id="category1" formControlName="category" value="1" checked>
+    <label for="category2" class="flex-grow-1 feedback-category-option" (click)="selectCategory(1);">
+      Something is not quite right
+    </label>
+    <input type="radio" class="category-input d-none" id="category2" formControlName="category" value="2">
+    <label for="category3" class="flex-grow-1 feedback-category-option" (click)="selectCategory(2);">
+      Compliment
+    </label>
+    <input type="radio" class="category-input d-none" id="category3" formControlName="category" value="3">
+  </div>
+  <span [ngClass]="{'is-invalid': (isSubmitted || f.category.touched) && f.category.invalid }"></span>
+  <span class="invalid-feedback" *ngIf="f.category.hasError('required')">Please Select Category</span>
+  <p class="m-0">Please leave your feedback below.</p>
+  <div class="my-2">
+    <textarea formControlName="feedback" class="form-control mb-2" rows="3" [ngClass]="{'is-invalid': (isSubmitted || f.feedback.touched) && f.feedback.invalid }"></textarea>
+    <span class="invalid-feedback" *ngIf="f.feedback.hasError('required')">Please Enter Feedback</span>
+  </div>
+  <div class="text-end">
+    <button type="submit" class="btn btn-secondary-auto">Send</button>
+  </div>
+</form>

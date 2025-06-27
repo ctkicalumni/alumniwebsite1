@@ -1,0 +1,38 @@
+<app-dash-header></app-dash-header>
+
+<nav class="breadcrumb-wrapper" id="breadcrumbWrapper" aria-label="breadcrumb">
+  <ol class="breadcrumb m-0 animate__animated animate__slideInDown">
+    <li class="breadcrumb-item">Voting</li>
+    <!-- <li class="breadcrumb-item active" aria-current="page">dfsdf</li> -->
+  </ol>
+</nav>
+<section class="section">
+  <div class="fw-bold text-center fs-5 mt-5" *ngIf="posts.length == 0">
+    There are no ongoing election !
+  </div>
+  <div *ngIf="posts.length != 0">
+    <div *ngFor="let election of elections">
+      <h3 class="fw-bold">{{election.election_title}}</h3>
+      <div class="row" *ngFor="let post of posts">
+        <h4 class="fw-bold">{{post.post_name}} <span class="text-danger" *ngIf="post.voted == 1">(You have already voted)</span></h4>
+        <div *ngIf="(currentDate | date:'yyyy-MM-dd HH:mm:ss') > post.voting_from && (currentDate | date:'yyyy-MM-dd HH:mm:ss') <= post.voting_to">
+          <div class="col-lg-2 col-md-3 col-6 mb-3" *ngFor="let candidate of post.candidates">
+            <div class="card">
+              <!-- <img src="https://images.unsplash.com/photo-1561154464-82e9adf32764?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" class="card-img-top" alt="..."> -->
+              <div class="card-img-wrapper" style="background-image: url('{{candidate.student_photo}}');"></div>
+              <div class="card-body">
+                <h5 class="card-title">{{candidate.first_name}}</h5>
+                <div class="d-grid" *ngIf="post.election_type == 0 && (info.left_days > 0 || info.left_days == 'lifetime')">
+                  <button type="button" class="btn btn-success" *ngIf="post.voted == 0 && !isVoted" (click)="submitVote(election.election_id,post.post_id,candidate.candidate_id)">VOTE</button>
+                </div>
+                <div class="d-grid" *ngIf="post.election_type == 1">
+                  <button type="button" class="btn btn-success" *ngIf="post.voted == 0 && !isVoted" (click)="submitVote(election.election_id,post.post_id,candidate.candidate_id)">VOTE</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

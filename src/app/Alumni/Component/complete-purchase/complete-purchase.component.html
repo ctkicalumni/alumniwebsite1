@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-8 offset-lg-3 offset-md-2">
+        <div class="p-3 shadow rounded"  *ngFor="let order of order_info">
+          <div class="text-center mb-3" *ngIf="order.status == 'TXN_SUCCESS'">
+            <div class="text-success fs-2"><i class="far fa-check-circle"></i> SUCCESS</div>
+            <div>Thanks {{order.first_name}}, for Purchasing Membership !</div>
+          </div>
+          <div class="text-center mb-3" *ngIf="order.status != 'TXN_SUCCESS'">
+            <div class="text-danger fs-2"><i class="far fa-times-circle"></i> Failed</div>
+            <div>{{order.response_msg}}</div>
+          </div>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="fw-bold">Membership</td>
+                <td>{{order.subscription_name}}</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Amount</td>
+                <td>{{order.txn_amount}}</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Transition ID</td>
+                <td>{{order.txn_id}}</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Purchase Date</td>
+                <td>{{order.updated_at | date: shortDate}}</td>
+              </tr>
+              <tr *ngIf="order.status == 'TXN_SUCCESS'">
+                <td class="fw-bold">Expiry Date</td>
+                <td>{{order.expiry_date | date: shortDate}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>

@@ -1,0 +1,94 @@
+<!--Top-Ribbon-->
+<div class="top-ribbon">
+  <div class="container">
+    <div class="row">
+      <div class="col-7 mb-sm-0 mb-1">
+        <div class="social-media-wrapper" *ngFor="let school of schoolInfo">
+          <a href="{{school['facebook_page']}}" target="_blnak" class="btn-social-media-icon fb"><i class="fab fa-facebook-f"></i></a>
+          <!-- <a href="#!" class="btn-social-media-icon tw"><i class="fab fa-twitter"></i></a> -->
+          <a href="{{school['twitter_page']}}" target="_blnak" class="btn-social-media-icon ig"><i class="fab fa-instagram"></i></a>
+          <a href="{{school['youtube_page']}}" target="_blnak" href="" class="btn-social-media-icon yt"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-5 d-flex justify-content-end" *ngIf="!isView">
+        <a class="btn btn-secondary-auto btn-sm" routerLink="/alumni">Login</a>
+        <a class="btn btn-secondary-auto btn-sm ms-1" routerLink="/alumni/registration">Register</a>
+      </div>
+      <div class="col-5 d-flex justify-content-end" *ngIf="isView">
+        <a class="btn btn-secondary-auto btn-sm" routerLink="/alumni/dashboard">Dashboard</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End-Top-Ribbon-->
+<!--End-Header-Navbar-->
+<header class="sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/">
+        <img src="assets/images/logo.png" width="250px" alt="" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              KNOW US
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" routerLink="/know-us">KNOW US</a></li>
+              <li><a class="dropdown-item" routerLink="/aims-and-objectives">AIMS & OBJECTIVES</a></li>
+              <li><a class="dropdown-item" routerLink="/membership">MEMBERSHIP</a></li>
+              <li><a class="dropdown-item" routerLink="/board-of-member">BOARD OF MEMBERS</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              ABOUT SCHOOL
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" routerLink="/about-school">ABOUT SCHOOL</a></li>
+              <li><a class="dropdown-item" routerLink="/former-principal">FORMER PRINCIPALS</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              GALLERY
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" routerLink="/gallery">PHOTO/VIDEO</a></li>
+              <li><a class="dropdown-item" routerLink="/media-gallery">MEDIA GALLERY</a></li>
+              <li><a class="dropdown-item" routerLink="/class-photo">CLASS PHOTO</a></li>
+            </ul>
+          </li>
+          <li class="nav-itme">
+            <a class="nav-link" routerLink="/faq">FAQs</a>
+          </li>
+          <li class="nav-itme">
+            <a class="nav-link" routerLink="/wall-of-fame">WALL OF FAME</a>
+          </li>
+          <!-- <li class="nav-itme">
+            <a href="#" class="nav-link">DONATE</a>
+          </li> -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              CONTACT US
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" routerLink="/contact-us">CONTACT US</a></li>
+              <li><a class="dropdown-item" routerLink="/site-map">SITE MAP</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<!--End-Header-Navbar-->

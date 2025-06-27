@@ -1,0 +1,229 @@
+/*-------------Arrow----------------------*/
+.bars {
+  text-align: right;
+  width: 20px;
+  height: 20px;
+  transition: 0.4s;
+}
+.bar {
+  background: #666;
+  padding: 1px 0;
+  width: 100%;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+.bar:nth-child(2) {
+  margin: 7px 0;
+}
+.arrow {
+  transform: rotateZ(180deg);
+}
+.arrow .bar:not(:nth-child(2)) {
+  width: 11px;
+  margin-left : 14px;
+}
+.arrow .bar:nth-child(1) {
+  transform: rotateZ(55deg);
+  transform-origin: top left;
+  margin-top: 1px;
+  margin-bottom: -1px;
+}
+.arrow .bar:nth-child(3) {
+  transform: rotateZ(-55deg);
+  transform-origin: bottom left;
+  margin-top: -1px;
+  margin-bottom: 1px;
+}
+/*-------------Arrow----------------------*/
+/*-------------------Header-----------------------------*/
+.main-header {
+  background-color: #fff;
+  display: flex;
+  align-items: stretch;
+  box-shadow: 0 0px 5px #ccc;
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+}
+.company-logo a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  height: 60px;
+  border-right: 1px solid #eee;
+}
+.company-logo .full-logo {
+  width: 200px;
+}
+.company-logo .full-logo img {
+  width: 167px;
+  height: 42px;
+}
+.company-logo .short-logo {
+  width: 60px;
+  display: none;
+}
+.company-logo .short-logo img {
+  width: 55px;
+  height: 55px;
+}
+.header-btns {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+.header-button {
+  border: none;
+  height: 60px;
+  font-size: 22px;
+  padding-left: 8px;
+  padding-right: 8px;
+  background: none;
+  color: #666;
+}
+.header-button:hover {
+  background: rgba(53, 53, 53, 0.08);
+}
+.header-button img {
+  background: #fff;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 2px solid #eee;
+}
+.remove-arrow::after {
+  content: none;
+}
+/*-------------------Header-----------------------------*/
+/*-------------------Side Navigation--------------------*/
+.side-navbar {
+  background-color: #FFF;
+  width: 200px;
+  height: calc( 100vh - 60px);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin-left: 0px;
+  z-index: 98;
+  transition: 0.2s;
+  overflow: auto;
+  box-shadow: 0 0px 5px #ccc;
+}
+.side-navbar-nav,
+.side-navbar-sub-menu,
+.side-navbar-report-menu {
+  list-style-type: none;
+  padding: 0;
+}
+.side-navbar-nav {
+  padding: 5px 0;
+}
+.side-navbar-item {
+  background: none;
+  transition: 0.2s;
+}
+.side-navbar-item.active {
+  background: rgba(var(--secondary-color),0.1)
+}
+.side-navbar-item.active .side-navbar-icon {
+  color: rgba(var(--secondary-color),1)
+}
+
+.side-navbar-item:hover {
+  // background: rgba(0,0,0,0.2);
+  background: rgba(var(--secondary-color),0.2)
+}
+.side-navbar-link {
+  display: flex;
+  text-decoration: none;
+  padding: 0 10px;
+  color: #333;
+  transition: 0.2s;
+}
+.side-navbar-link:hover {
+  color: rgba(var(--secondary-color),1);
+}
+.side-navbar-icon {
+  /* background: red; */
+  width: 40px;
+  height: 40px;
+  /* font-size: 18px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.side-navbar-text {
+  /* background: yellow; */
+  width: 190px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.side-sub-menu .drop-icon {
+  transition: 0.2s;
+}
+.side-sub-menu .rotate-arrow {
+  transform: rotate(90deg);
+  transform-origin: center center;
+}
+.side-navbar-sub-menu {
+  padding: 5px 0;
+}
+.side-sub-menu>.side-navbar-sub-menu {
+  display: none;
+}
+.side-navbar-sub-menu>.side-navbar-item:hover {
+  background: none;
+}
+.side-navbar-sub-menu .side-navbar-link>.side-navbar-text {
+  height: 30px;
+  margin-left: 40px;
+}
+.side-sub-report-menu>.side-navbar-report-menu {
+  display: none;
+  padding-left: 10px;
+}
+.side-navbar-report-menu>.side-navbar-item:hover {
+  background: none;
+}
+.side-navbar-report-menu .side-navbar-link {
+  font-size: 14px;
+}
+.side-navbar-report-menu .side-navbar-link>.side-navbar-text {
+  height: 25px;
+  margin-left: 40px;
+}
+/*-------------------Side Navigation--------------------*/
+@media screen and (max-width: 575px) {
+  .side-navbar {
+      margin-left: -200px;
+  }
+  .company-logo .full-logo {
+      width: 162px;
+  }
+}
+
+.short-profile {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+.short-profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 5px;
+}
+.short-profile .username {
+  font-size: 13px;
+}
+.short-profile .membership {
+  font-size: 11px;
+}
+.short-profile:hover {
+  background: rgba(53, 53, 53, 0.08);
+}

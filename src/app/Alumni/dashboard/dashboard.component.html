@@ -1,0 +1,192 @@
+<app-dash-header></app-dash-header>
+
+<!-- <nav class="breadcrumb-wrapper" id="breadcrumbWrapper" aria-label="breadcrumb">
+  <ol class="breadcrumb m-0">
+    <li class="breadcrumb-item">Dashboard</li>
+  </ol>
+</nav> -->
+<div class="breadcrumb-wrapper ">
+  <div class="row g-0 w-100">
+    <div class="col-4">
+      <div class="px-2 border-bottom border-secondary-auto d-inline-block animate__animated animate__slideInDown">
+        Dashboard
+      </div>
+    </div>
+    <div class="col-8 text-end">
+      <div class="animate__animated animate__slideInDown d-inline-block bg-white rounded-2 shadow-sm px-2 text-secondary-auto" *ngIf="info.left_days > 0 || info.left_days == 'lifetime'">
+        <div class=""><i class="far fa-grin-stars" style="color:#FFD700;"></i> {{info.membership_type}} Member <i class="fas fa-at"></i> {{membershipFee}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="row">
+    <div class="col-12 mb-3" *ngIf="!isNRI && membershipLen">
+      <div class="row">
+        <div class="col-sm-6 mb-3" *ngFor="let membership of memberships">
+          <div class="card">
+            <div class="card-body">
+              <!-- <h4 class="card-title mb-3 fw-bold">{{membership.subscription_name}} Membership</h4> -->
+              <div class="pill-heading">{{membership.subscription_name}} Membership</div>
+              <p class="card-text mb-0"><strong>Amount : </strong>{{membership.subscription_fee}}/-</p>
+              <p class="card-text" *ngIf="membership.subscription_duration != 'lifetime'"><strong>Duration : </strong>{{membership.subscription_duration}} Days</p>
+              <p class="card-text" *ngIf="membership.subscription_duration == 'lifetime'"><strong>Duration : </strong>{{membership.subscription_duration}}</p>
+              <!-- <a href="{{membership.payment_link}}" target="_blank" class="btn btn-primary">Pay</a> -->
+              <button type="button" class="btn btn-primary" (click)="purchaseMembership(membership.id)">Pay</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mb-3" *ngIf="isNRI && membershipLen">
+      <div class="card">
+        <div class="card-body">
+          <div><span class="fw-bold">Bank A/c no. : </span>11111111111111111111</div>
+          <div><span class="fw-bold">IFSC Code : </span>BNK01234</div>
+          <div><span class="fw-bold">Branch : </span>Demo</div>
+          <h4 class="fw-bold m-0 mt-2">Plans : </h4>
+          <div class="row">
+            <div class="col-sm-6 mt-1 mb-1" *ngFor="let membership of memberships;">
+              <div class="card">
+                <div class="card-body">
+                  <h6 class="card-title m-0 mt-1 fw-bold">{{membership.subscription_name}} Membership</h6>
+                  <p class="card-text mb-0"><strong>Amount : </strong>{{membership.subscription_fee}}/-</p>
+                  <p class="card-text" *ngIf="membership.subscription_duration != 'lifetime'"><strong>Duration : </strong>{{membership.subscription_duration}} Days</p>
+                  <p class="card-text" *ngIf="membership.subscription_duration == 'lifetime'"><strong>Duration : </strong>{{membership.subscription_duration}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div><span class="fw-bold">Note : </span> After Complete your transaction. Please send transaction details or screenshot to us at <span class="fw-bold">+91-9045506958.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mb-3" *ngIf="iselection">
+      <div class="election-box shadow p-3 rounded" style="background-image:url('assets/images/election.jpg')" *ngFor="let election of elections">
+        <h3 class="fw-bold">{{election.election_title}}</h3>
+        <div class="row">
+          <div class="col-lg-3 col-sm-6 mt-3" *ngFor="let post of posts">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">{{post.post_name}}</h5>
+              <div *ngIf="(currentDate | date:'yyyy-MM-dd HH:mm:ss') <= post.nomination_from">
+                <p class="card-text">Nomination Start From {{post.nomination_from | date:'mediumDate'}} at {{post.nomination_from | date:'shortTime'}}</p>
+              </div>
+              <div *ngIf="(currentDate | date:'yyyy-MM-dd HH:mm:ss') > post.nomination_from && (currentDate | date:'yyyy-MM-dd HH:mm:ss') <= post.nomination_to">
+                <div *ngIf="info.left_days > 0 || info.left_days == 'lifetime'">
+                  <button type="button" class="btn btn-auto mt-3 mb-2" *ngIf="post.candidated == 0 && !isCandidate" (click)="getElected(election.election_id, post.post_id)">Nomminate Yourself</button>
+                </div>
+                <p class="card-text">Nomination End on {{post.nomination_to | date:'mediumDate'}} at {{post.nomination_to | date:'shortTime'}}</p>
+              </div>
+              <div *ngIf="(currentDate | date:'yyyy-MM-dd HH:mm:ss') > post.nomination_to && (currentDate | date:'yyyy-MM-dd HH:mm:ss') <= post.voting_from">
+                <p class="card-text">Voting Start From {{post.voting_from | date:'mediumDate'}} at {{post.voting_from | date:'shortTime'}} & Ends on {{post.voting_to | date:'mediumDate'}} at {{post.voting_to | date:'shortTime'}}</p>
+              </div>
+              <div *ngIf="(currentDate | date:'yyyy-MM-dd HH:mm:ss') > post.voting_from && (currentDate | date:'yyyy-MM-dd HH:mm:ss') <= post.voting_to">
+                <p class="card-text">Voting is live now & Ends on {{post.voting_to | date:'mediumDate'}} at {{post.voting_to | date:'shortTime'}}</p>
+                <div *ngIf="post.election_type == 0">
+                  <a routerLink="/alumni/voting" class="btn btn-auto" *ngIf="info.left_days > 0 || info.left_days == 'lifetime'">Vote Here</a>
+                </div>
+                <div *ngIf="post.election_type == 1">
+                  <a routerLink="/alumni/voting" class="btn btn-auto">Vote Here</a>
+                </div>
+              </div>
+              <div *ngIf="(post.result_broadcast == 0 || post.result_broadcast == 2) && (currentDate | date:'yyyy-MM-dd HH:mm:ss') > post.voting_to && (currentDate | date:'yyyy-MM-dd HH:mm:ss') < post.result_date">
+                <p class="card-text">Voting Ended, Result declare soon !</p>
+              </div>
+              <div *ngIf="post.result_broadcast == 1">
+                <div [ngClass]="post.winner.length == 1 ? 'col-12' : 'col-6'" *ngFor="let winner of post.winner">
+                  <div class="card">
+                    <img src="{{winner.student_photo}}" class="card-img-top object-cover object-align-top" [style.height]="post.winner.length == 1 ? '180px' : '100px'" alt="...">
+                    <div class="card-body text-center">
+                      <div>{{winner.first_name}}</div>
+                      <div><strong>Vote : </strong>{{winner.votes}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="post.result_broadcast == 2 && (currentDate | date:'yyyy-MM-dd HH:mm:ss') > post.result_date">
+                <!-- <div *ngIf="expression"></div> -->
+                <div [ngClass]="post.winner.length == 1 ? 'col-12' : 'col-6'" *ngFor="let winner of post.winner">
+                  <div class="card">
+                    <img src="{{winner.student_photo}}" class="card-img-top object-cover object-align-top" [style.height]="post.winner.length == 1 ? '180px' : '100px'" alt="...">
+                    <div class="card-body text-center">
+                      <div class="text-uppercase fw-bold">{{winner.first_name}}</div>
+                      <div><strong>Vote : </strong>{{winner.votes}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div *ngIf="post.result_broadcast == 2 && (currentDate | date:'yyyy-MM-dd HH:mm:ss') <= post.result_date">
+                <p class="card-text">Result Announce on {{post.result_date | date:'mediumDate'}} at  {{post.result_date | date:'shortTime'}} !</p>
+              </div> -->
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 mb-3">
+      <div class="pb-3 d-flex justify-content-between">
+        <div class="fs-5">News</div>
+        <div class=""><a routerLink="/alumni/news" class="btn btn-outline-secondary-auto btn-sm">View More</a></div>
+      </div>
+      <div class="p-3 bg-white shadow rouded">
+        <div class="news-event-box" *ngFor="let news of news">
+          <div class="news-event-full-date">
+            <div class="news-event-day">{{news.date | date : 'EEE'}}</div>
+            <div class="news-event-date">{{news.date | date : 'dd'}}</div>
+            <div class="news-event-month">{{news.date | date : 'MMM'}}</div>
+          </div>
+          <div class="news-event-details">
+            <h3 class="news-event-title">{{news.news_title}}</h3>
+            <p class="news-event-description">{{news.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 mb-3">
+      <div class="pb-3 d-flex justify-content-between">
+        <div class="fs-5">Event</div>
+        <div class=""><a routerLink="/alumni/events" class="btn btn-outline-secondary-auto btn-sm">View More</a></div>
+      </div>
+      <div class="p-3 bg-white shadow rouded">
+        <div class="news-event-box" *ngFor="let event of events">
+          <div class="news-event-full-date">
+            <div class="news-event-day">{{event.from_date | date : 'EEE'}}</div>
+            <div class="news-event-date">{{event.from_date | date : 'dd'}}</div>
+            <div class="news-event-month">{{event.from_date | date : 'MMM'}}</div>
+          </div>
+          <div class="news-event-details">
+            <h3 class="news-event-title">{{event.title}}</h3>
+            <p class="news-event-description">{{event.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Button trigger modal -->
+  <!-- <button type="button" class="btn btn-primary" (click)="showModal()">
+    Launch demo modal
+  </button> -->
+
+  <!-- Modal -->
+  <div class="modal" [ngClass]="{'fade show d-block' : isModalShown}" [attr.role]="isModalShown?'dialog':null" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade show d-block" id="exampleModal" aria-labelledby="exampleModalLabel" tabindex="-1" aria-modal="true" role="dialog"> -->
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Profile</h5>
+          <button type="button" class="btn-close" (click)="hideModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center">
+            You have not completed your profile.<br/><button class="btn btn-secondary-auto mt-2" routerLink="/alumni/profile">Complete Profile</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="modal-backdrop fade show" *ngIf="isModalShown"  (click)="hideModal()"></div>

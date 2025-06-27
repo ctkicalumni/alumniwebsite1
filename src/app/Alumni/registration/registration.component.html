@@ -1,0 +1,132 @@
+<app-header></app-header>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-8 offset-lg-3 offset-md-2">
+        <div class="alert {{notification['class']}} mb-2" role="alert" *ngIf="notification">
+          {{notification['message']}}
+        </div>
+        <form class="g-3" [formGroup]="registrationForm" (ngSubmit)="submit()" autocomplete="off">
+          <div class="card">
+            <div class="card-header text-center">
+              Alumnus Registration
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6 mb-2">
+                  <label class="fw-bold">Name :</label>
+                  <input type="text" formControlName="name" class="form-control" placeholder="Name"
+                    [ngClass]="{'is-invalid': (isSubmitted || f.name.touched) && f.name.invalid}" />
+                  <span class="invalid-feedback" *ngIf="f.name.hasError('required')">Please enter your name !</span>
+                </div>
+                <div class="col-sm-6 mb-2">
+                  <label class="fw-bold">Date of Birth :</label>
+                  <input type="date" formControlName="dob" class="form-control" title="Date of Birth" [ngClass]="{'is-invalid': ((isSubmitted || f.dob.touched) && f.dob.invalid) || doborpassingyear}" (change)="checkDoborPassingYear();">
+                  <span class="invalid-feedback" *ngIf="f.dob.hasError('required')">Please enter date of birth</span>
+                  <span class="invalid-feedback" *ngIf="doborpassingyear">Please check year of leaving or Date of Birth</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 mb-2">
+                  <label class="fw-bold">Email :</label>
+                  <input type="email" formControlName="email" class="form-control" placeholder="Email" [ngClass]="{'is-invalid': (isSubmitted || f.email.touched) && f.email.invalid}" />
+                  <span class="invalid-feedback" *ngIf="f.email.hasError('required')">Please enter your email !</span>
+                  <span class="invalid-feedback" *ngIf="f.email.hasError('email')">Please enter a valid email !</span>
+                </div>
+                <div class="col-sm-6 mb-2">
+                  <label class="fw-bold">Gender</label>
+                  <select formControlName="gender" class="form-select" [ngClass]="{'is-invalid': (isSubmitted || f.gender.touched) && f.gender.invalid}">
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <span class="invalid-feedback" *ngIf="f.gender.hasError('required')">Please select gender !</span>
+                </div>
+              </div>
+              <label class="fw-bold">Mobile No. :</label>
+              <div class="row">
+                <div class="col-6 mb-2">
+                  <select formControlName="phone_code" class="form-select">
+                    <option [value]="phoneCode.dial_code" *ngFor="let phoneCode of phoneCodes">{{phoneCode.name}}</option>
+                  </select>
+                </div>
+                <div class="col-6 mb-2">
+                  <input type="text" formControlName="mobile_no" maxlength="10" class="form-control" placeholder="Mobile No." [ngClass]="{'is-invalid': (isSubmitted || f.mobile_no.touched) && f.mobile_no.invalid}" />
+                  <span class="invalid-feedback" *ngIf="f.mobile_no.hasError('required')">Please enter your mobile no. !</span>
+                  <span class="invalid-feedback" *ngIf="f.mobile_no.hasError('pattern') || f.mobile_no.hasError('minlength') || f.mobile_no.hasError('maxlength')">Please enter a valid mobile no. !</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 mb-2">
+                  <label class="fw-bold">Passing Year :</label>
+                  <select class="form-select" formControlName="passing_year"
+                    [ngClass]="{'is-invalid': ((isSubmitted || f.passing_year.touched) && f.passing_year.invalid) || doborpassingyear}" (change)="checkDoborPassingYear();">
+                    <option value="">-- Select Year --</option>
+                    <option *ngFor="let year of years" [value]="year.year">{{year.year}}</option>
+                  </select>
+                  <span class="invalid-feedback" *ngIf="f.passing_year.hasError('required')">Please select year of leaving</span>
+                  <span class="invalid-feedback" *ngIf="doborpassingyear">Please check year of leaving or Date of Birth</span>
+                </div>
+                <div class="col-sm-6 mb-2">
+                  <label class="fw-bold">Passing Class :</label>
+                  <select class="form-select" formControlName="passing_class"
+                    [ngClass]="{'is-invalid': (isSubmitted || f.passing_class.touched) && f.passing_class.invalid}">
+                    <option value="">-- Select Class --</option>
+                    <option *ngFor="let class of classes" [value]="class.id">{{class.class_name}}</option>
+                  </select>
+                  <span class="invalid-feedback" *ngIf="f.passing_class.hasError('required')">Please select last studied
+                    class</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 mb-2 mb-sm-0">
+                  <label class="fw-bold">Password :</label>
+                  <input type="password" formControlName="password" class="form-control" placeholder="Password"
+                  [ngClass]="{'is-invalid': (isSubmitted || f.password.touched) && f.password.invalid}" />
+                  <span class="invalid-feedback" *ngIf="f.password.hasError('required')">Please enter password</span>
+                  <span class="invalid-feedback"
+                    *ngIf="f.password.hasError('minlength') || f.password.hasError('maxlength')">Password lenght should
+                    be 6 - 18 characters</span>
+                </div>
+                <div class="col-sm-6">
+                  <label class="fw-bold">Confirm Password :</label>
+                  <div class="input-group">
+                    <input type="{{passwordMask}}" formControlName="confrim_password" class="form-control"
+                    placeholder="Confrim Password"
+                    [ngClass]="{'is-invalid': (isSubmitted || f.confrim_password.touched) && f.confrim_password.invalid}" />
+                    <button type="button" class="btn btn-secondary-auto" (click)="unmask()"><i class="{{passwordMaskIcon}}"></i></button>
+                  </div>
+                  <span [ngClass]="{'is-invalid': (isSubmitted || f.confrim_password.touched) && f.confrim_password.invalid}"></span>
+                  <span class="invalid-feedback" *ngIf="f.confrim_password.hasError('required')">Please enter
+                    password</span>
+                  <span class="invalid-feedback" *ngIf="f.confrim_password.hasError('matching')">Confirm Password does not
+                    match</span>
+                </div>
+              </div>
+              <div class="mt-2" *ngIf="viewOtp">
+                <input type="number" formControlName="otp" class="form-control" placeholder="Enter OTP" [ngClass]="{'is-invalid': (isSubmitted || f.otp.touched) && f.otp.invalid}" />
+                <span class="invalid-feedback" *ngIf="f.otp.hasError('required')">Please enter OTP !</span>
+              </div>
+            </div>
+            <div class="card-footer text-muted">
+              <div class="row align-items-center">
+                <div class="col-6 text-start"></div>
+                <div class="col-6 text-end">
+                  <button type="submit" class="btn btn-auto btn-sm" *ngIf="viewOtp">Register</button>
+                  <button type="button" class="btn btn-auto btn-sm" (click)="sendOtp()" *ngIf="!viewOtp">Send OTP</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="text-center pt-5">
+        Already a member, <a routerLink="/alumni">Login</a>
+      </div>
+    </div>
+  </div>
+</section>
+<app-screen-loader [isShow]="isShow"></app-screen-loader>
+<app-footer></app-footer>

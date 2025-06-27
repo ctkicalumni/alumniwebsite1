@@ -1,0 +1,25 @@
+<app-dash-header></app-dash-header>
+
+<nav class="breadcrumb-wrapper" id="breadcrumbWrapper" aria-label="breadcrumb">
+  <ol class="breadcrumb m-0 animate__animated animate__slideInDown">
+    <li class="breadcrumb-item">News</li>
+    <!-- <li class="breadcrumb-item active" aria-current="page">dfsdf</li> -->
+  </ol>
+</nav>
+<section class="section">
+  <div class="row">
+    <div class="col-md-6 mb-3" *ngFor="let news of news">
+      <div class="bg-white news-event-box shadow p-2 rounded">
+        <div class="news-event-full-date">
+          <div class="news-event-day">{{news.date | date : 'EEE'}}</div>
+          <div class="news-event-date">{{news.date | date : 'dd'}}</div>
+          <div class="news-event-month">{{news.date | date : 'MMM'}}</div>
+        </div>
+        <div class="news-event-details">
+          <h3 class="news-event-title">{{news.news_title}}</h3>
+          <p class="news-event-description">{{news.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

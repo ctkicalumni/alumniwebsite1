@@ -1,0 +1,26 @@
+<app-header></app-header>
+<!-- <app-breadcrumbs [mainTitle]="mainTitle" [pageTitle]="pageTitle"></app-breadcrumbs> -->
+<div class="breadcrumbs" style="background-image: url('assets/images/banner/banner_2.jpg');">
+  <div class="breadcrumbs-wrapper">
+      <ul class="breadcrumbs-nav">
+          <li><a routerLink="/">{{mainTitle}}</a></li>
+          <li>{{pageTitle}}</li>
+      </ul>
+      <div class="breadcrumbs-title-wrapper" style="cursor: pointer;" routerLink="/alumni">
+          <h2 class="breadcrumbs-title">{{pageTitle}}</h2>
+      </div>
+  </div>
+</div>
+
+<section class="py-5">
+  <div class="container">
+    <h4 class="fw-bold">How You Can Be One Of Us :</h4>
+    <p>Membership is open to all who studied in Christ The King School</p>
+    <ul>
+      <li>Regular Membership – Rs. 1000/Year</li>
+      <li>Premium Membership – Rs. 11000/Lifetime</li>
+    </ul>
+  </div>
+</section>
+
+<app-footer></app-footer>
